@@ -25,6 +25,11 @@ services.AddGuider();
         // you can use it with ElementRef or X,Y 
         // Guider.Show(showPopupNearMe, "Content", GuidePosition.Bottom);
         // Guider.Show(200, 400, "Content", GuidePosition.TopLeft);
+        Guider.OnClosed += OnClosed;
+    }
+    private void OnClosed(object sender, EventArg args)
+    {
+        Console.WriteLine("Closed");
     }
 }
 ```
