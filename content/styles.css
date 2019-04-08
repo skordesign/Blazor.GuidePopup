@@ -1,0 +1,55 @@
+﻿/*
+    This file is to show how CSS and other static resources (such as images) can be
+    used from a library project/package.
+*/
+
+.guider-overlay {
+    position: fixed;
+    z-index: 100000;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: ease-in .5s;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.guider-content {
+    position: fixed;
+    z-index: 100002;
+    height: auto;
+    max-width: 200px;
+    background-color: white;
+    padding: 8px;
+    border-radius: 4px;
+    animation-name: contentAni;
+    animation-duration: .5s;
+    animation-iteration-count: infinite;
+}
+.guider-highlight {
+    position: fixed;
+    z-index: 100001;
+    border-style: dashed;
+    border-color: white;
+    border-width: 2px;
+    border-radius: 8px;
+    background-color: rgba(255,255,255, 0.2);
+}
+
+@keyframes contentAni {
+    0% {
+        -ms-transform: scale(1); /* IE 9 */
+        -webkit-transform: scale(1); /* Safari */
+        transform: scale(1);
+    }
+    50% {
+        -ms-transform: scale(1.1); /* IE 9 */
+        -webkit-transform: scale(1.1); /* Safari */
+        transform: scale(1.1);
+    }
+    100% {
+        -ms-transform: scale(1); /* IE 9 */
+        -webkit-transform: scale(1); /* Safari */
+        transform: scale(1);
+    }
+}
