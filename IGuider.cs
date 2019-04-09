@@ -13,7 +13,9 @@ namespace SkorBlazor.GuidePopup
         Task Show(string elementId, string content, GuidePosition guidePosition = GuidePosition.Right);
         Task Show(double x, double y, string content, GuidePosition guidePosition = GuidePosition.Right);
         void InvokeClosed();
-        IGuider Make(GuideStep guideStep);
+        IGuider Make(ElementRef element, string content, GuidePosition guidePosition = GuidePosition.Right);
+        IGuider Make(string elementId, string content, GuidePosition guidePosition = GuidePosition.Right);
+        IGuider Make(double x, double y, string content, GuidePosition guidePosition = GuidePosition.Right);
         Task Start();
     }
     public enum GuidePosition

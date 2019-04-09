@@ -45,7 +45,7 @@ namespace SkorBlazor.GuidePopup
             OnClosed?.Invoke(this, null);
         }
 
-        public IGuider Make(GuideStep guideStep)
+        private IGuider Make(GuideStep guideStep)
         {
             GuideLines.Enqueue(guideStep);
             return this;
@@ -74,6 +74,21 @@ namespace SkorBlazor.GuidePopup
             if (guideStep.GuideType == GuideType.Ref)
                 return Show(guideStep.ElementRef, guideStep.Content, guideStep.GuidePosition);
             return Show(guideStep.X, guideStep.Y, guideStep.Content, guideStep.GuidePosition);
+        }
+
+        public IGuider Make(ElementRef element, string content, GuidePosition guidePosition = GuidePosition.Right)
+        {
+            return Make(new GuideStep(element, content, guidePosition));
+        }
+
+        public IGuider Make(string elementId, string content, GuidePosition guidePosition = GuidePosition.Right)
+        {
+            return Make(new GuideStep(elementId, content, guidePosition));
+        }
+
+        public IGuider Make(double x, double y, string content, GuidePosition guidePosition = GuidePosition.Right)
+        {
+            return Make(new GuideStep(x, y, content, guidePosition));
         }
     }
     public class GuideStep

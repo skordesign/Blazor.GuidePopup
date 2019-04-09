@@ -5,10 +5,10 @@ window.guiderJsFunctions = {
         let element = document.getElementById(elementId);
         if (!element)
             return;
-        guiderJsFunctions.show(setting, id, element.offsetLeft, element.offsetTop, element.offsetWidth, element.offsetHeight, content, position, dotnetHelper);
+        guiderJsFunctions.show(setting, id, guiderJsFunctions.getOffset(element).X, guiderJsFunctions.getOffset(element).Y, element.offsetWidth, element.offsetHeight, content, position, dotnetHelper);
     },
     showWithElementRef: function (setting, id, element, content, position) {
-        guiderJsFunctions.show(setting, id, element.offsetLeft, element.offsetTop, element.offsetWidth, element.offsetHeight, content, position, dotnetHelper);
+        guiderJsFunctions.show(setting, id, guiderJsFunctions.getOffset(element).X, guiderJsFunctions.getOffset(element).Y, element.offsetWidth, element.offsetHeight, content, position, dotnetHelper);
     },
     showWithXY: function (setting, id, x, y, content, position, dotnetHelper) {
         guiderJsFunctions.show(setting, id, x, y, 0, 0, content, position, dotnetHelper);
@@ -91,5 +91,17 @@ window.guiderJsFunctions = {
         let guider = document.getElementById(id);
         if (guider)
             guider.parentElement.removeChild(guider);
+    },
+    getOffset: function(obj) {
+        var posX = obj.offsetLeft; var posY = obj.offsetTop;
+        while (obj.offsetParent) {
+            if (obj === document.getElementsByTagName('body')[0]) { break; }
+            else {
+                posX = posX + obj.offsetParent.offsetLeft;
+                posY = posY + obj.offsetParent.offsetTop;
+                obj = obj.offsetParent;
+            }
+        }
+        return { X: posX, Y: posY };
     }
 };

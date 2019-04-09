@@ -39,10 +39,10 @@ services.AddGuider();
 <div ref="showPopupNearMe"></div>
 @functions{
     ElementRef showPopupNearMe;
-    Guider.Make(new SkorBlazor.GuidePopup.GuideStep("elementId", "Content", GuidePosition.Right))
-            .Make(new SkorBlazor.GuidePopup.GuideStep(showPopupNearMe, "Content", GuidePosition.Bottom))
-            .Make(new SkorBlazor.GuidePopup.GuideStep(300, 300, "Test 3"))
-            .Start();
+    Guider.Make("elementId", "Content", GuidePosition.Right)
+          .Make(showPopupNearMe, "Content", GuidePosition.Bottom)
+          .Make(300, 300, "Test 3")
+          .Start();
 }
 ```
 ##### Note: The Guider will create new element and add it to inside of `body` tag, when close it will removed. If you have any idea for this package,feel free create new issue on this repository.
