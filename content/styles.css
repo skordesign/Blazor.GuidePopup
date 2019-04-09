@@ -11,9 +11,12 @@
     left: 0;
     right: 0;
     transition: ease-in .5s;
+    opacity:0;
     background-color: rgba(0,0,0,0.4);
 }
-
+.show{
+    opacity: 1;
+}
 .guider-content {
     position: fixed;
     z-index: 100002;

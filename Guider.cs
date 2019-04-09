@@ -9,11 +9,13 @@ namespace SkorBlazor.GuidePopup
 {
     public class Guider : IGuider
     {
+        private Queue<GuideStep> GuideLines { get; set; }
         private GuiderSetting Setting;
         private string Id { get; } = Guid.NewGuid().ToString();
         private readonly IJSRuntime _jSRuntime;
         public Guider(IJSRuntime jSRuntime)
         {
+            GuideLines = new Queue<GuideStep>();
             Setting = new GuiderSetting();
             _jSRuntime = jSRuntime;
         }
@@ -42,5 +44,73 @@ namespace SkorBlazor.GuidePopup
         {
             OnClosed?.Invoke(this, null);
         }
+
+        public IGuider Make(GuideStep guideStep)
+        {
+            GuideLines.Enqueue(guideStep);
+            return this;
+        }
+
+        public async Task Start()
+        {
+            while (GuideLines.Count != 0)
+            {
+                bool closed = false;
+                GuideStep step = GuideLines.Dequeue();
+                this.OnClosed += (s, e) =>
+                {
+                    closed = true;
+                };
+                await ShowStep(step);
+                while (!closed)
+                    await Task.Delay(100);
+            }
+        }
+
+        private Task ShowStep(GuideStep guideStep)
+        {
+            if (guideStep.GuideType == GuideType.Id)
+                return Show(guideStep.ElementId, guideStep.Content, guideStep.GuidePosition);
+            if (guideStep.GuideType == GuideType.Ref)
+                return Show(guideStep.ElementRef, guideStep.Content, guideStep.GuidePosition);
+            return Show(guideStep.X, guideStep.Y, guideStep.Content, guideStep.GuidePosition);
+        }
+    }
+    public class GuideStep
+    {
+        private GuideStep(string content, GuidePosition guidePosition)
+        {
+            this.Content = content;
+            this.GuidePosition = guidePosition;
+        }
+        public GuideStep(string elementId, string content, GuidePosition guidePosition = GuidePosition.Right) : this(content, guidePosition)
+        {
+            this.ElementId = elementId;
+            this.GuideType = GuideType.Id;
+        }
+        public GuideStep(ElementRef elementRef, string content, GuidePosition guidePosition = GuidePosition.Right) : this(content, guidePosition)
+        {
+            this.ElementRef = elementRef;
+            this.GuideType = GuideType.Ref;
+        }
+        public GuideStep(double x, double y, string content, GuidePosition guidePosition = GuidePosition.Right) : this(content, guidePosition)
+        {
+            this.X = x;
+            this.Y = y;
+            this.GuideType = GuideType.Coordination;
+        }
+        public GuideType GuideType { get; set; }
+        public string Content { get; set; }
+        public GuidePosition GuidePosition { get; set; }
+        public string ElementId { get; set; }
+        public ElementRef ElementRef { get; set; }
+        public double X { get; set; }
+        public double Y { get; set; }
+    }
+    public enum GuideType
+    {
+        Ref,
+        Id,
+        Coordination
     }
 }

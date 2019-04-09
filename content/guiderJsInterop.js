@@ -18,7 +18,8 @@ window.guiderJsFunctions = {
         overlay.setAttribute('id', id);
         overlay.setAttribute('class', setting.overlayClassName);
         overlay.addEventListener('click', function () {
-            guiderJsFunctions.remove(id);
+            overlay.className = setting.overlayClassName;
+            setTimeout(() => guiderJsFunctions.remove(id), 500);
             dotnetHelper.invokeMethodAsync("InvokeClosed");
         });
         let contentEle = document.createElement('div');
@@ -31,6 +32,7 @@ window.guiderJsFunctions = {
         highlight.setAttribute('class', setting.roundedClassName);
         overlay.appendChild(highlight);
         body.appendChild(overlay);
+        setTimeout(() => overlay.className = setting.overlayClassName + " show", 100);
         // Compute size
         let positionXY = getPosition(x, y, w, h, contentEle, position);
         contentEle.style.left = positionXY.X + 'px';
