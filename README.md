@@ -33,6 +33,6 @@ services.AddGuider();
     }
 }
 ```
-##### Note: The Guider will create new element and add it to inside of <body>, when close it will removed. If you have any idea for this package,feel free create new issue on this repository.
+##### Note: The Guider will create new element and add it to inside of `body` tag, when close it will removed. If you have any idea for this package,feel free create new issue on this repository.
 #### Demo
 ![Demo](Demo.gif)
