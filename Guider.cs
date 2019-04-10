@@ -90,6 +90,13 @@ namespace SkorBlazor.GuidePopup
         {
             return Make(new GuideStep(x, y, content, guidePosition));
         }
+
+        public async Task ShowAll()
+        {
+            if (GuideLines.Count == 0)
+                return;
+            await _jSRuntime.InvokeAsync<object>("guiderJsFunctions.showMany", Setting, Id, GuideLines.ToArray(), new DotNetObjectRef(this));
+        }
     }
     public class GuideStep
     {

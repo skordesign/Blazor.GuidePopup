@@ -45,6 +45,20 @@ services.AddGuider();
           .Start();
 }
 ```
+#### Update 0.1.2
+- Show multiple guide one time
+```csharp
+@inject SkorBlazor.GuidePopup.IGuider Guider
+<div ref="showPopupNearMe"></div>
+@functions{
+    ElementRef showPopupNearMe;
+    Guider.Make("elementId", "Content", GuidePosition.Right)
+          .Make(showPopupNearMe, "Content", GuidePosition.Bottom)
+          .Make(300, 300, "Test 3")
+          .ShowAll();
+}
+```
+
 ##### Note: The Guider will create new element and add it to inside of `body` tag, when close it will removed. If you have any idea for this package,feel free create new issue on this repository.
 #### Demo
 ![Demo](Demo.gif)
