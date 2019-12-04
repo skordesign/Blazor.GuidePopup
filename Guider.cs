@@ -25,19 +25,19 @@ namespace Blazor.GuidePopup
         }
         public event EventHandler OnClosed;
 
-        public Task Show(ElementRef element, string content, GuidePosition guidePosition = GuidePosition.Right)
+        public ValueTask<object> Show(ElementReference element, string content, GuidePosition guidePosition = GuidePosition.Right)
         {
-            return _jSRuntime.InvokeAsync<object>("guiderJsFunctions.showWithElementRef", Setting, Id, element, content, guidePosition, new DotNetObjectRef(this));
+            return _jSRuntime.InvokeAsync<object>("guiderJsFunctions.showWithElementRef", Setting, Id, element, content, guidePosition, DotNetObjectReference.Create(this));
         }
 
-        public Task Show(string elementId, string content, GuidePosition guidePosition = GuidePosition.Right)
+        public ValueTask<object> Show (string elementId, string content, GuidePosition guidePosition = GuidePosition.Right)
         {
-            return _jSRuntime.InvokeAsync<object>("guiderJsFunctions.showWithElementId", Setting, Id, elementId, content, guidePosition, new DotNetObjectRef(this));
+            return _jSRuntime.InvokeAsync<object>("guiderJsFunctions.showWithElementId", Setting, Id, elementId, content, guidePosition, DotNetObjectReference.Create(this));
         }
 
-        public Task Show(double x, double y, string content, GuidePosition guidePosition = GuidePosition.Right)
+        public ValueTask<object> Show (double x, double y, string content, GuidePosition guidePosition = GuidePosition.Right)
         {
-            return _jSRuntime.InvokeAsync<object>("guiderJsFunctions.showWithXY", Setting, Id, x, y, content, guidePosition, new DotNetObjectRef(this));
+            return _jSRuntime.InvokeAsync<object>("guiderJsFunctions.showWithXY", Setting, Id, x, y, content, guidePosition, DotNetObjectReference.Create (this));
         }
         [JSInvokable]
         public void InvokeClosed()
@@ -67,7 +67,7 @@ namespace Blazor.GuidePopup
             }
         }
 
-        private Task ShowStep(GuideStep guideStep)
+        private ValueTask<object> ShowStep(GuideStep guideStep)
         {
             if (guideStep.GuideType == GuideType.Id)
                 return Show(guideStep.ElementId, guideStep.Content, guideStep.GuidePosition);
@@ -76,7 +76,7 @@ namespace Blazor.GuidePopup
             return Show(guideStep.X, guideStep.Y, guideStep.Content, guideStep.GuidePosition);
         }
 
-        public IGuider Make(ElementRef element, string content, GuidePosition guidePosition = GuidePosition.Right)
+        public IGuider Make(ElementReference element, string content, GuidePosition guidePosition = GuidePosition.Right)
         {
             return Make(new GuideStep(element, content, guidePosition));
         }
@@ -95,7 +95,7 @@ namespace Blazor.GuidePopup
         {
             if (GuideLines.Count == 0)
                 return;
-            await _jSRuntime.InvokeAsync<object>("guiderJsFunctions.showMany", Setting, Id, GuideLines.ToArray(), new DotNetObjectRef(this));
+            await _jSRuntime.InvokeAsync<object>("guiderJsFunctions.showMany", Setting, Id, GuideLines.ToArray(), DotNetObjectReference.Create (this));
         }
     }
     public class GuideStep
@@ -110,7 +110,7 @@ namespace Blazor.GuidePopup
             this.ElementId = elementId;
             this.GuideType = GuideType.Id;
         }
-        public GuideStep(ElementRef elementRef, string content, GuidePosition guidePosition = GuidePosition.Right) : this(content, guidePosition)
+        public GuideStep(ElementReference elementRef, string content, GuidePosition guidePosition = GuidePosition.Right) : this(content, guidePosition)
         {
             this.ElementRef = elementRef;
             this.GuideType = GuideType.Ref;
@@ -125,7 +125,7 @@ namespace Blazor.GuidePopup
         public string Content { get; set; }
         public GuidePosition GuidePosition { get; set; }
         public string ElementId { get; set; }
-        public ElementRef ElementRef { get; set; }
+        public ElementReference ElementRef { get; set; }
         public double X { get; set; }
         public double Y { get; set; }
     }
