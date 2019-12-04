@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SkorBlazor.GuidePopup
+namespace Blazor.GuidePopup
 {
     public interface IGuider
     {

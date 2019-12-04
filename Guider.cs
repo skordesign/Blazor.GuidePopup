@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace SkorBlazor.GuidePopup
+namespace Blazor.GuidePopup
 {
     public class Guider : IGuider
     {

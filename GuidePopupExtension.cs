@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SkorBlazor.GuidePopup
+namespace Blazor.GuidePopup
 {
     public static class GuidePopupExtension
     {

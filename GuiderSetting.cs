@@ -1,4 +1,4 @@
-﻿namespace SkorBlazor.GuidePopup
+﻿namespace Blazor.GuidePopup
 {
     public class GuiderSetting
     {
