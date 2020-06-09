@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Blazor.GuidePopup
+namespace Polarizelab.Blazor.GuidePopup
 {
     public static class GuidePopupExtension
     {
@@ -14,7 +14,7 @@ namespace Blazor.GuidePopup
         }
         public static void AddGuider(this IServiceCollection services, Action<GuiderSetting> options)
         {
-            services.AddScoped<IGuider>(f=> new Guider(f.GetService<IJSRuntime>()));
+            services.AddScoped<IGuider>(f=> new Guider(f.GetService<IJSRuntime>(), options));
         }
     }
 }

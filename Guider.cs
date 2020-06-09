@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace Blazor.GuidePopup
+namespace Polarizelab.Blazor.GuidePopup
 {
     public class Guider : IGuider
     {

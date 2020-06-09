@@ -1,33 +1,46 @@
-# SkorBlazor.GuidePopup
+# Polarizelab.Blazor.GuidePopup
 Guidelines popup for Blazor
 ### Usage
 #### 1.Installation
-Nuget: [SkorBlazor.GuidePopup](https://www.nuget.org/packages/SkorBlazor.GuidePopup/)
+Nuget: [Blazor.GuidePopup](https://www.nuget.org/packages/Polarizelab.Blazor.GuidePopup)
 #### 2.Add service
 ```csharp
-services.AddGuider();
+builder.Services.AddGuider();
 // also use with options
-// service.AddGuider(options => {
+// builder.Services.AddGuider(options => {
 // options.PopupClassName = "your-class";
 ///...
 //})
 ```
+and in index.html
+```html
+    ...
+    <link href="_content/Polarizelab.Blazor.GuidePopup/styles.css" rel="stylesheet"/>
+    ...
+
+    ...
+    <script src="_content/Polarizelab.Blazor.GuidePopup/Guider.js"></script>
+    ...
+```
 
 #### 3.Inject service and use it
 ```csharp
-@inject SkorBlazor.GuidePopup.IGuider Guider
+@page "/"
+@inject Polarizelab.Blazor.GuidePopup.IGuider Guider
 <div ref="showPopupNearMe"></div>
 @functions{
-    ElementRef showPopupNearMe;
-    protected override async Task OnInitAsync()
+    ElementReference showPopupNearMe;
+    protected override void OnInitialized()
     {
+        base.OnInitialized();
+
         Guider.Show("elementId", "Content", GuidePosition.Right);
-        // you can use it with ElementRef or X,Y 
+        // you can use it with ElementRef or X,Y
         // Guider.Show(showPopupNearMe, "Content", GuidePosition.Bottom);
         // Guider.Show(200, 400, "Content", GuidePosition.TopLeft);
         Guider.OnClosed += OnClosed;
     }
-    private void OnClosed(object sender, EventArg args)
+    private void OnClosed(object sender, System.EventArgs args)
     {
         Console.WriteLine("Closed");
     }
@@ -35,27 +48,16 @@ services.AddGuider();
 ```
 #### Use GuideLines
 ```csharp
-@inject SkorBlazor.GuidePopup.IGuider Guider
+@inject Polarizelab.Blazor.GuidePopup.IGuider Guider
 <div ref="showPopupNearMe"></div>
-@functions{
-    ElementRef showPopupNearMe;
-    Guider.Make("elementId", "Content", GuidePosition.Right)
-          .Make(showPopupNearMe, "Content", GuidePosition.Bottom)
-          .Make(300, 300, "Test 3")
-          .Start();
-}
-```
-#### Update 0.1.2
-- Show multiple guide one time
-```csharp
-@inject SkorBlazor.GuidePopup.IGuider Guider
-<div ref="showPopupNearMe"></div>
-@functions{
-    ElementRef showPopupNearMe;
-    Guider.Make("elementId", "Content", GuidePosition.Right)
-          .Make(showPopupNearMe, "Content", GuidePosition.Bottom)
-          .Make(300, 300, "Test 3")
-          .ShowAll();
+@code{
+    ElementReference showPopupNearMe;
+    private void ShowGuidline(){
+        Guider.Make("elementId", "Content", GuidePosition.Right)
+              .Make(showPopupNearMe, "Content", GuidePosition.Bottom)
+              .Make(300, 300, "Test 3")
+              .Start();
+	}
 }
 ```
 

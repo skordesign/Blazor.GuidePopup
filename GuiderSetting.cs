@@ -1,4 +1,4 @@
-﻿namespace Blazor.GuidePopup
+﻿namespace Polarizelab.Blazor.GuidePopup
 {
     public class GuiderSetting
     {

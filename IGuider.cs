@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Blazor.GuidePopup
+namespace Polarizelab.Blazor.GuidePopup
 {
     public interface IGuider
     {

@@ -47,8 +47,9 @@ window.guiderJsFunctions = {
             return;
         guiderJsFunctions.show(setting, id, guiderJsFunctions.getOffset(element).X, guiderJsFunctions.getOffset(element).Y, element.offsetWidth, element.offsetHeight, content, position, dotnetHelper);
     },
-    showWithElementRef: function (setting, id, element, content, position) {
-        guiderJsFunctions.show(setting, id, guiderJsFunctions.getOffset(element).X, guiderJsFunctions.getOffset(element).Y, element.offsetWidth, element.offsetHeight, content, position, dotnetHelper);
+    showWithElementRef: function (setting, id, element, content, position, dotnetHelper) {
+        var offset = guiderJsFunctions.getOffset(element);
+        guiderJsFunctions.show(setting, id, offset.X, offset.Y, element.offsetWidth, element.offsetHeight, content, position, dotnetHelper);
     },
     showWithXY: function (setting, id, x, y, content, position, dotnetHelper) {
         guiderJsFunctions.show(setting, id, x, y, 0, 0, content, position, dotnetHelper);
